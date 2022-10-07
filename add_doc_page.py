@@ -1,3 +1,4 @@
+from turtle import title
 import PySimpleGUI as sp
 import db_driver
 def _make_journal():
@@ -24,10 +25,36 @@ def start():
         if event == sp.WIN_CLOSED:
             break
         elif event == "Add":
-            entered = True
-            for value in values:
-                entered &= (value != "")
-
-            if entered:
+            if _add(values):
+                
                 window.close() 
+                break
     return
+
+def _add(values):
+    doc = dict()
+
+    authors = values[0].strip()
+    if authors == "":
+        return False
+    authors = authors.split(',')
+    doc['authors'] = authors
+
+    title = values[1].strip()
+    if title == "":
+        return False
+    doc['title'] = title
+
+    journal = values[2].strip()
+    if journal == "":
+        return False
+    doc['journal'] = journal
+
+    year = values[3].strip()
+    if year == "" or not year.isnumeric():
+        return False
+    doc['year'] = int(year)
+
+    pages = ()
+    return
+

@@ -69,15 +69,18 @@ def get_doc(id : str):
 def remove_doc(id : str, rev:str):
     print("remove")
     print(id + " " + rev)
+    responce = requests.delete(
+        URL + DATABASE + "/" + id,
+        auth=AUTH,
+        params={"_rev":rev})
+    print(responce)
     return
 
 def update_doc(id : str, rev : str, doc : Doc):
-    print("update")
     doc._rev = rev
-    response = requests.put(
+    requests.put(
         URL + DATABASE + "/" + id,
         auth=AUTH, 
         data= json.dumps(doc.__dict__),
         headers=HEADER)
-    print(response)
     return

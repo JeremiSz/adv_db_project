@@ -10,7 +10,7 @@ def start(id:str):
 
     pages = doc['pages']
     layout =  [
-        [sp.Text("Author: "), sp.InputText(default_text=author)],
+        [sp.Text("Author: "), sp.InputText()],
         [sp.Text("Title: "), sp.InputText(doc["title"])],
         [sp.Text("Journal: "), sp.InputText(doc["journal"])],
         [sp.Text("Year: "), sp.InputText(str(doc["year"]))],
@@ -26,7 +26,9 @@ def start(id:str):
             window.close()
             break
         elif event == "Update":
-            db_driver.update_doc(doc)
-            window.close()
-            break
+            result = db_driver.Doc.new(authors=values[0],title=values[1],journal=values[2],year=values[3],page_from=values[4],page_to=values[5],volume=values[6],issue=[7])
+            if result:  
+                db_driver.update_doc(result)
+                window.close()
+                break
     return

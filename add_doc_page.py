@@ -26,35 +26,14 @@ def start():
             break
         elif event == "Add":
             if _add(values):
-                
                 window.close() 
                 break
     return
 
 def _add(values):
-    doc = dict()
-
-    authors = values[0].strip()
-    if authors == "":
-        return False
-    authors = authors.split(',')
-    doc['authors'] = authors
-
-    title = values[1].strip()
-    if title == "":
-        return False
-    doc['title'] = title
-
-    journal = values[2].strip()
-    if journal == "":
-        return False
-    doc['journal'] = journal
-
-    year = values[3].strip()
-    if year == "" or not year.isnumeric():
-        return False
-    doc['year'] = int(year)
-
-    pages = ()
-    return
+    result = db_driver.Doc.new(values[0],values[1],values[2],values[3],values[4],values[5],values[6],values[7])
+    if not result:
+        return result
+    db_driver.add_doc(result)
+    return True
 

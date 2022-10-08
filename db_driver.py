@@ -1,13 +1,12 @@
-from array import array
+from email.header import Header
+from urllib import response
 import requests
+import json
 
 AUTH = ("CouchDB","CouchDB")
 URL = "http://127.0.0.1:5984/"
 DATABASE = "papers"
-
-response = requests.get(URL,auth=AUTH)
-
-print(response)
+HEADER = {"Content-type":"application/json"}
 
 class Doc:
     def __init__(
@@ -41,6 +40,7 @@ class Doc:
          page_from and page_to and volume and issue):
             return False
 
+        authors = authors.replace('and',',')
         authors = authors.split(',')
         if not (page_from.isnumeric() and page_to.isnumeric() and
          year.isnumeric() and volume.isnumeric() and issue.isnumeric()):
@@ -52,10 +52,11 @@ class Doc:
 
 
 def add_doc(doc : Doc):
-    print("add")
-    print(doc.__dict__)
-    responce = requests.post(URL + DATABASE + "/",auth=AUTH,data= doc.__dict__)
-    print(responce)
+    responce = requests.post(
+        URL + DATABASE,
+        auth=AUTH, 
+        data= json.dumps(doc.__dict__),
+        headers=HEADER)
     return
 
 def get_all():

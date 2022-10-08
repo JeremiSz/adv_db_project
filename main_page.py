@@ -14,7 +14,6 @@ def start():
 
     while True:
         event,values = window.read()
-        print(event)
         if event == sp.WIN_CLOSED:
             break
         elif event == REFRESH:
@@ -25,27 +24,14 @@ def start():
             details_page.start(event[0])
             
         elif event[1] == REMOVE:
-            print("REMOVE " + event[0])
             window.layout = _refresh()
     return
 
 def _make_doc_ui(doc) ->list:
-    author = "Author: "
-    print(doc)
-    if not 'author' in doc:
-        return []
-    for name in doc['author']:
-        author += name + ", "
-
-    pages = doc['pages']
+    if not 'title' in doc:
+        return[]
     return [
-        #sp.Text(author),
         sp.Text("Title: "+ doc["title"]),
-        #sp.Text("Journal: " + doc["journal"]),
-        #sp.Text("Year: " + str(doc["year"])),
-        #sp.Text("Pages: from " + str(pages['from']) + " to " + str(pages['to'])),
-        #sp.Text("Volume: " + str(doc['volume'])),
-        #sp.Text("Issue: " + str(doc['issue']))
         sp.Button("Details",key=(doc['_id'],UPDATE)),
         sp.Button("Remove", key=(doc['_id'],REMOVE))
     ]

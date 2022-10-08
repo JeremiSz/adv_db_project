@@ -54,6 +54,8 @@ class Doc:
 def add_doc(doc : Doc):
     print("add")
     print(doc.__dict__)
+    responce = requests.post(URL + DATABASE + "/",auth=AUTH,data= doc.__dict__)
+    print(responce)
     return
 
 def get_all():

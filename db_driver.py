@@ -14,7 +14,7 @@ class Doc:
         year:int, page_from:int, page_to:int,
         volume:int, issue:int
         ) -> None:
-        self.authors = authors
+        self.author = authors
         self.title = title
         self.journal = journal
         self.year = year
@@ -52,7 +52,7 @@ class Doc:
 
 
 def add_doc(doc : Doc):
-    responce = requests.post(
+    requests.post(
         URL + DATABASE,
         auth=AUTH, 
         data= json.dumps(doc.__dict__),
@@ -71,7 +71,13 @@ def remove_doc(id : str, rev:str):
     print(id + " " + rev)
     return
 
-def update_doc(doc : Doc):
+def update_doc(id : str, rev : str, doc : Doc):
     print("update")
-    print(doc)
+    doc._rev = rev
+    response = requests.put(
+        URL + DATABASE + "/" + id,
+        auth=AUTH, 
+        data= json.dumps(doc.__dict__),
+        headers=HEADER)
+    print(response)
     return

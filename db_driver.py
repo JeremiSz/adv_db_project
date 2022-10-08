@@ -72,7 +72,7 @@ def remove_doc(id : str, rev:str):
     responce = requests.delete(
         URL + DATABASE + "/" + id,
         auth=AUTH,
-        params={"_rev":rev})
+        params={"rev":rev})
     print(responce)
     return
 

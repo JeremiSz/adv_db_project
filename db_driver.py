@@ -84,3 +84,14 @@ def update_doc(id : str, rev : str, doc : Doc):
         data= json.dumps(doc.__dict__),
         headers=HEADER)
     return
+
+def get_docs_by_journal():
+    response = requests.get(URL + DATABASE + "/_design/aggregate/_view/by-journal", auth=AUTH)
+    return response.json()
+
+def get_year_counts(year:str=""):
+    if year:
+        response = requests.get(URL + DATABASE + "/_design/aggregate/_view/count-year?key=" + year, auth=AUTH)
+    else:
+        response = requests.get(URL + DATABASE + "/_design/aggregate/_view/count-year", auth=AUTH)
+    return response.json()

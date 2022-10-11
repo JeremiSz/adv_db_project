@@ -59,6 +59,7 @@ def add_doc(doc : Doc):
         headers=HEADER)
     return
 
+#unused
 def get_all():
     response = requests.get(URL + DATABASE + "/_all_docs", auth=AUTH)
     return response.json()
@@ -67,8 +68,6 @@ def get_doc(id : str):
     return requests.get(URL + DATABASE + "/" + id,auth=AUTH).json()
 
 def remove_doc(id : str, rev:str):
-    print("remove")
-    print(id + " " + rev)
     responce = requests.delete(
         URL + DATABASE + "/" + id,
         auth=AUTH,

@@ -9,12 +9,22 @@ def start(id:str):
         author += name + ", "
 
     pages = doc['pages']
+    if "from" in pages:
+        p_from = pages["from"]
+    else:
+        p_from = pages[0]
+
+    if "to" in pages:
+        p_to = pages["to"]
+    else:
+        p_to = pages[1]
+    print(pages)
     layout =  [
         [sp.Text("Author: "), sp.InputText(author)],
         [sp.Text("Title: "), sp.InputText(doc["title"])],
         [sp.Text("Journal: "), sp.InputText(doc["journal"])],
         [sp.Text("Year: "), sp.InputText(str(doc["year"]))],
-        [sp.Text("Pages: from "),sp.InputText(str(pages[0])), sp.Text(" to "), sp.InputText(str(pages[1]))],
+        [sp.Text("Pages: from "),sp.InputText(str(p_from)), sp.Text(" to "), sp.InputText(str(p_to))],
         [sp.Text("Volume: "), sp.InputText(str(doc['volume']))],
         [sp.Text("Issue: "), sp.InputText(str(doc['issue']))],
         [sp.Button("Update")]

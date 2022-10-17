@@ -22,6 +22,7 @@ class Doc:
         self.volume = volume
         self.issue = issue
         return
+        
     def new(
         authors : str, title:str, journal:str,
         year:str,page_from:str,page_to:str,
